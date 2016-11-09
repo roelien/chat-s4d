@@ -5,9 +5,7 @@ var express = require("express"),
     io = require("socket.io").listen(app.listen(port));
 
 
-app.get("/", function (req, res) {
-    res.sendfile(__dirname + "/index.html");
-});
+app.use(express.static(__dirname + '/public'));
 
 io.sockets.on("connection", function (socket) {
 
