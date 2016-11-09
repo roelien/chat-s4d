@@ -22,6 +22,7 @@
 <script type="text/javascript" src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.10/jquery-ui.min.js"></script>
 <script src="/socket.io/socket.io.js"></script>
 <script>
+    var $ = require('jquery');
     jQuery(function ($) {
         var socket = io.connect();
         var $messageForm = $("#send-message");
