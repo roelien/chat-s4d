@@ -1,9 +1,10 @@
 var express = require("express"),
     app = express(),
+    port = process.env.PORT ||8080,
     server = require("http").createServer(app),
-    io = require("socket.io").listen(server);
+    io = require("socket.io").listen(app.listen(port));
 
-server.listen(3000);
+
 app.get("/", function (req, res) {
     res.sendfile(__dirname + "/index.html");
 });
