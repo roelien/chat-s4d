@@ -13,43 +13,20 @@
 </head>
 <body>
 <div id="chat">
-   
+      <canvas id="mijnCanvasje" width="500" height="300"
+        style="border: 1px dotted black"> </canvas>
 </div>
 <form id="send-message">
     <input type="text" size="35" id="message" />
     <input type="submit" value="send"/>
 
     <div id="heartbeat">...</div>
-     <canvas id="mijnCanvasje" width="500" height="300"
-        style="border: 1px dotted black">
-</canvas>
+  
 </form>
 
 <script src="/socket.io/socket.io.js"></script>
 <script>
-    jQuery(function ($) {
-        var socket = io.connect();
-        var $messageForm = $("#send-message");
-        var $messageBox = $("#message");
-        var $chat = $("#chat");
-
-        $messageForm.submit(function (e) {
-            e.preventDefault();
-            socket.emit("sendMessage", $messageBox.val());
-            $messageBox.val("");
-        });
-
-        socket.on("newMessage", function (data) {
-            $chat.append(data);
-            $chat.append("<br/>");
-        });
-
-        socket.on('heartbeat', function (data) {
-            console.log("heartbeat", data);
-            document.getElementById("heartbeat").innerHTML = JSON.stringify(data);
-        });
-
-    });
+   
     
     var theContext = startDrawing("mijnCanvasje")
     
@@ -92,6 +69,30 @@
    		stapY = -stapY;
    	}
    }
+    
+ jQuery(function ($) {
+    var socket = io.connect();
+    var $messageForm = $('x');
+    var $messageBox = $('y');
+    var $chat = $("#chat");
+
+    $messageForm.submit(function (e) {
+        e.preventDefault();
+        socket.emit("sendMessage", $messageBox.val());
+        $messageBox.val("");
+    });
+
+    socket.on("newMessage", function (data) {
+        $chat.append(data);
+        $chat.append("<br/>");
+    });
+
+    socket.on('heartbeat', function (data) {
+        console.log("heartbeat", data);
+        document.getElementById("heartbeat").innerHTML = JSON.stringify(data);
+    });
+
+});
 </script>
 </body>
 </html>
