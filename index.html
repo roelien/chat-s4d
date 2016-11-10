@@ -72,11 +72,11 @@
     
  jQuery(function ($) {
     var socket = io.connect();
-    var $messageForm = $('x');
-    var $messageBox = $('y');
+    var $messageForm = $('x', 'y');
+
     var $chat = $("#chat");
 
-    $messageForm.submit(function (e) {
+    $messageForm.change(function (e) {
         e.preventDefault();
         socket.emit("sendMessage", $messageBox.val());
         $messageBox.val("");
