@@ -26,7 +26,6 @@
 
 <script src="/socket.io/socket.io.js"></script>
 <script>
-   
     
     var theContext = startDrawing("mijnCanvasje")
     
@@ -69,14 +68,15 @@
    		stapY = -stapY;
    	}
    }
-    
+
+              
  jQuery(function ($) {
     var socket = io.connect();
-    var $messageForm = $('x', 'y');
+    var $messageForm = $(x, y);
 
     var $chat = $("#chat");
 
-    $messageForm.change(function (e) {
+    $messageForm.mousemove(function (e) {
         e.preventDefault();
         socket.emit("sendMessage", $messageBox.val());
         $messageBox.val("");

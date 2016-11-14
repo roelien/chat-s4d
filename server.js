@@ -10,7 +10,8 @@ app.get("/", function (req, res) {
 });
 
 io.sockets.on("connection", function (socket) {
-
+    
+    socket.emit('news', { hello: 'world'});
     // Sends a message every 1000 milliseconds
     setInterval(function () {
         var d = new Date();
@@ -23,3 +24,5 @@ io.sockets.on("connection", function (socket) {
     });
 
 });
+console.log("Your game is working on *" + port);
+
