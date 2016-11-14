@@ -23,12 +23,12 @@
     <div id="heartbeat">...</div>
   
 </form>
-
+<button id="MijnButtontje">Click me!</button>
 <script src="/socket.io/socket.io.js"></script>
 <script>
     
-    var theContext = startDrawing("mijnCanvasje")
     
+   
    function drawDisc( x,y,r ) {
       theContext.beginPath();
       theContext.arc(x,y,r,0,Math.PI*2,false);
@@ -42,41 +42,31 @@
       return drawingContext;
    }
  
-
+   var theContext = startDrawing("mijnCanvasje")
  
-   var x = 100;  // houdt de veranderende horizontale positie bij
-   var y = 100;  // houd de veranderende verticale positie bij
-    
-    // voorbeeld van setInterval
-   setInterval( mijnFunctie, 24 ) // 1 keer per seconde
-    
-   var frameTeller = 0;
-   var stapX = 5;
-   var stapY = 10;
+   var x = 20;  // houdt de veranderende horizontale positie bij
+               // Bij 20 begint de circle aan de rand.
+ 
+	var button = document.getElementById("MijnButtontje");
+	button.addEventListener("click", function(){
+		if (x < 470){ 
+			x += 10;
+		  theContext.clearRect(0,0,500,300); // wis het canvas
+		  drawDisc( x, 100, 30 );
+	  } else{
+		console.log("je loopt van het scherm af!");
+	  }
+	})
 
-   function mijnFunctie() {
-      frameTeller++;
-   	x += stapX;
-   	y += stapY;
-   	theContext.clearRect(0,0,500,300); // wis het canvas
-   	drawDisc( x, y, 30 );
-   	
-   	if(x == 470 || x == 30){
-   		stapX = -stapX;
-   	}
-   	if (y == 30 || y == 270){
-   		stapY = -stapY;
-   	}
-   }
 
               
  jQuery(function ($) {
     var socket = io.connect();
-    var $messageForm = $(x, y);
+    var $messageForm = $(drawDisc);
 
     var $chat = $("#chat");
 
-    $messageForm.mousemove(function (e) {
+    $messageForm.submit(function (e) {
         e.preventDefault();
         socket.emit("sendMessage", $messageBox.val());
         $messageBox.val("");
